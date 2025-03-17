@@ -18,7 +18,7 @@ const PORT = process.env.PORT;
 
 //middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors()); 
 
 //Routes
 readdirSync("./routes").map((route) =>
@@ -90,12 +90,7 @@ let transporter = nodemailer.createTransport({
 
 app.post("/api/v1/add-expense", async (req, res) => {
   try {
-    const { title, amount, date, category, description } = req.body;
-
-    // Check if any field is missing
-    if (!title || !amount || !date || !category || !description) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
+    const expense = req.body;
     // Save expense to database here (if applicable)
     const sendExpenseMail = async (expense) => {
       const mailOptions = {

@@ -10,7 +10,7 @@ export const GlobalProvider = ({ children }) => {
   const [income, setIncome] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [expens, setExpens] = useState([]);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   const addExpense = async (expense) => {
     const response = await axios
@@ -22,25 +22,24 @@ export const GlobalProvider = ({ children }) => {
   };
   const addExpens = async (expense) => {
     const { title, amount, date, category, description } = expense;
-  
+
     // Check if any field is missing
     if (!title || !amount || !date || !category || !description) {
       setError("All fields are required");
       return;
     }
-  
+
     try {
-      const response = await axios.post(`${BASE_URL}add-expense`, expense);
+      await axios.post(`${BASE_URL}add-expense`, expense);
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }
   };
-  
+
   const getExpenses = async (expense) => {
     const response = await axios.get(`${BASE_URL}get-expenses`);
     setExpenses(response.data);
   };
-
 
   async function deleteExpense(id) {
     try {
@@ -69,23 +68,22 @@ export const GlobalProvider = ({ children }) => {
         setError(err.response.data.message);
       });
     getIncomes();
-  }; 
+  };
   const addIncom = async (income) => {
     const { title, amount, date, category, description } = income;
-  
+
     // Check if any field is missing
     if (!title || !amount || !date || !category || !description) {
       setError("All fields are required");
       return;
     }
-  
+
     try {
       await axios.post(`${BASE_URL}add-income`, income);
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }
   };
-  
 
   const getIncomes = async (income) => {
     const response = await axios.get(`${BASE_URL}get-incomes`);
