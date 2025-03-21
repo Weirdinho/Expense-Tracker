@@ -12,6 +12,7 @@ import Transactions from "./Components/Transactions/Transactions";
 import { useGlobalContext } from "./Components/context/globalContext";
 import Budget from "./Components/Budget/budget";
 import LoginSignup from "./Components/LoginSignup/LoginSignup";
+import LandingPage from "./Components/LandingPage/LandingPage";
 
 function App() {
   const [active, setActive] = React.useState(1);
@@ -44,10 +45,13 @@ function App() {
     return <Orb />;
   }, []);
   return (
-    
     <Routes>
       {!isAuthenticated ? (
-        <Route path="*" element={<LoginSignup />} />
+        <>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<LoginSignup />} />
+          <Route path="*" element={"/"} />
+        </>
       ) : (
         <Route
           path="/"
@@ -93,7 +97,4 @@ const AppStyled = styled.div`
   }
 `;
 
-
-
 export default App;
-
